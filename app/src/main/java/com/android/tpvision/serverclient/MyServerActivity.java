@@ -59,7 +59,7 @@ public class MyServerActivity extends ActionBarActivity {
         @Override
         protected String doInBackground(String... urls) {
             WebSocketImpl.DEBUG = true;
-            int port = 8887; // 843 flash policy port
+            int port = 7110; // 843 flash policy port
 
             try {
                 mWSServer = new ChatServer(port);

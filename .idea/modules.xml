@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NSD Server And Client.iml" filepath="$PROJECT_DIR$/NSD Server And Client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Android-WebSocket-Server-and-Client-with-NSD-Discovery-Mechanism.iml" filepath="$PROJECT_DIR$/Android-WebSocket-Server-and-Client-with-NSD-Discovery-Mechanism.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

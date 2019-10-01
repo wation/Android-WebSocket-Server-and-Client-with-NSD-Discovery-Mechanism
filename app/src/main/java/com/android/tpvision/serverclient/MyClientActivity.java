@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import com.android.tpvision.java_websocket.client.WebSocketClient;
@@ -58,7 +59,7 @@ public class MyClientActivity extends ActionBarActivity {
                                     int position, long id) {
 
                 mServiceName = (String) mListView.getItemAtPosition(position);
-                if(mServiceName.equals("SamWSServer")){
+                if(mServiceName.startsWith("SamWSServer")){
                     mServiceAddress = mNsdServers.get(position).getHost();
                     mPort = mNsdServers.get(position).getPort();
                     StartClientAync asynctask = new StartClientAync();
@@ -66,6 +67,16 @@ public class MyClientActivity extends ActionBarActivity {
                 }
             }
         });
+
+
+        try {
+            mServiceAddress = InetAddress.getByName("192.168.43.1");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        mPort = 7110;//8887;//
+        StartClientAync asynctask = new StartClientAync();
+        asynctask.execute();
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, mNsdServiceNameList);
@@ -84,6 +95,8 @@ public class MyClientActivity extends ActionBarActivity {
                     mNsdServiceNameList.add(ns.getServiceName());
                 }
                 adapter.notifyDataSetChanged();
+
+//                mClient.send("I am websocket client");
             }
         });
         //Discover button which on clicked should list the nsd services in listview -end
@@ -165,6 +178,7 @@ public class MyClientActivity extends ActionBarActivity {
         public void onOpen( ServerHandshake handshakedata ) {
             Log.i(TAG, "opened connection");
             // if you plan to refuse connection based on ip or httpfields overload: onWebsocketHandshakeReceivedAsClient
+            send("I am websocket client");
         }
 
         @Override
