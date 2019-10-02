@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.java_websocket.WebSocket;
+import org.java_websocket.WebSocketImpl;
+import org.java_websocket.framing.Framedata;
+import org.java_websocket.handshake.ClientHandshake;
+import org.java_websocket.server.WebSocketServer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,11 +21,11 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.Collection;
 
-import com.android.tpvision.java_websocket.WebSocket;
-import com.android.tpvision.java_websocket.WebSocketImpl;
-import com.android.tpvision.java_websocket.framing.Framedata;
-import com.android.tpvision.java_websocket.handshake.ClientHandshake;
-import com.android.tpvision.java_websocket.server.WebSocketServer;
+//import com.android.tpvision.java_websocket.WebSocket;
+//import com.android.tpvision.java_websocket.WebSocketImpl;
+//import com.android.tpvision.java_websocket.framing.Framedata;
+//import com.android.tpvision.java_websocket.handshake.ClientHandshake;
+//import com.android.tpvision.java_websocket.server.WebSocketServer;
 
 
 public class MyServerActivity extends ActionBarActivity {
@@ -58,8 +64,8 @@ public class MyServerActivity extends ActionBarActivity {
 
         @Override
         protected String doInBackground(String... urls) {
-            WebSocketImpl.DEBUG = true;
-            int port = 7110; // 843 flash policy port
+//            WebSocketImpl.DEBUG = true;
+            int port = 7110; //8887;// 843 flash policy port
 
             try {
                 mWSServer = new ChatServer(port);
@@ -124,10 +130,10 @@ public class MyServerActivity extends ActionBarActivity {
             });
         }
 
-        @Override
-        public void onFragment(WebSocket conn, Framedata fragment) {
-            Log.i(TAG, "received fragment: " + fragment);
-        }
+//        @Override
+//        public void onFragment(WebSocket conn, Framedata fragment) {
+//            Log.i(TAG, "received fragment: " + fragment);
+//        }
 
 
         @Override
@@ -138,14 +144,18 @@ public class MyServerActivity extends ActionBarActivity {
             }
         }
 
+        @Override
+        public void onStart() {
+
+        }
+
         /**
          * Sends <var>text</var> to all currently connected WebSocket clients.
          *
          * @param text The String to send across the network.
-         * @throws InterruptedException When socket related I/O errors occur.
          */
         public void sendToAll(String text) {
-            Collection<WebSocket> con = connections();
+            Collection<WebSocket> con = getConnections();
             Log.i(TAG, "No of active connections : " + con.size());
             synchronized (con) {
                 for (WebSocket c : con) {

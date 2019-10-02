@@ -12,17 +12,26 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+//import com.android.tpvision.java_websocket.drafts.Draft_10;
+
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft;
+import org.java_websocket.framing.Framedata;
+import org.java_websocket.handshake.ServerHandshake;
+
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
-import com.android.tpvision.java_websocket.client.WebSocketClient;
-import com.android.tpvision.java_websocket.drafts.Draft;
-import com.android.tpvision.java_websocket.drafts.Draft_10;
-import com.android.tpvision.java_websocket.framing.Framedata;
-import com.android.tpvision.java_websocket.handshake.ServerHandshake;
+//import com.android.tpvision.java_websocket.client.WebSocketClient;
+//import com.android.tpvision.java_websocket.drafts.Draft;
+//import com.android.tpvision.java_websocket.drafts.Draft_10;
+//import com.android.tpvision.java_websocket.exceptions.InvalidFrameException;
+//import com.android.tpvision.java_websocket.framing.Framedata;
+//import com.android.tpvision.java_websocket.handshake.ServerHandshake;
 
 public class MyClientActivity extends ActionBarActivity {
 
@@ -137,7 +146,7 @@ public class MyClientActivity extends ActionBarActivity {
                 //if (service != null) {
                   if (null != mServiceAddress && mPort >=0) {
                     Log.i(TAG, "Connecting. host : " + "ws:/"+mServiceAddress+":"+mPort);
-                    mClient = new ExampleClient(new URI("ws:/"+mServiceAddress+":"+mPort), new Draft_10());
+                    mClient = new ExampleClient(new URI("ws:/"+mServiceAddress+":"+mPort));
                     mClient.connect();
 
                     runOnUiThread(new Runnable() {
@@ -178,7 +187,10 @@ public class MyClientActivity extends ActionBarActivity {
         public void onOpen( ServerHandshake handshakedata ) {
             Log.i(TAG, "opened connection");
             // if you plan to refuse connection based on ip or httpfields overload: onWebsocketHandshakeReceivedAsClient
-            send("I am websocket client");
+            //send("I am websocket client");
+            send("I am websocket client".getBytes());
+            //send("I am websocket client1");
+
         }
 
         @Override
@@ -190,11 +202,11 @@ public class MyClientActivity extends ActionBarActivity {
                 }
             });
         }
-
-        @Override
-        public void onFragment( Framedata fragment ) {
-            Log.i(TAG, "received fragment: " + new String( fragment.getPayloadData().array() ) );
-        }
+//
+//        @Override
+//        public void onFragment( Framedata fragment ) {
+//            Log.i(TAG, "received fragment: " + new String( fragment.getPayloadData().array() ) );
+//        }
 
         @Override
         public void onClose( int code, String reason, boolean remote ) {
