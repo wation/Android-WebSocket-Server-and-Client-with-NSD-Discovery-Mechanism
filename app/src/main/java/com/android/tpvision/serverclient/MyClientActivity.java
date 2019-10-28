@@ -77,16 +77,6 @@ public class MyClientActivity extends ActionBarActivity {
             }
         });
 
-
-        try {
-            mServiceAddress = InetAddress.getByName("192.168.43.1");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        mPort = 7110;//8887;//
-        StartClientAync asynctask = new StartClientAync();
-        asynctask.execute();
-
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, mNsdServiceNameList);
         mListView.setAdapter(adapter);
